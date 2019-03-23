@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<!-- <link rel="stylesheet" type="text/css" href="https://cdn.bootcss.com/bootstrap/3.3.7/css/bootstrap.min.css"> -->
+	<title>ShowPrjInfo</title>
+	<meta charset="utf-8">
+</head>
+<body>
+	{% extends 'bootstrap/base.html' %}
+	{% block title %}ShowPrjInfo{% endblock %}
+	{% block content %}
+	<div class="container">
+		<div class="row"></div>
+		<div class="page-header">
+			<h3>项目信息</h3>
+		</div>
+		<div class="row">
+			<form action="/project/addexcel/" method="POST" enctype="multipart/form-data">
+				<div class="form-group">
+					<label for="add">
+						导入Excel文件
+					</label>
+					<input type="file" name="excelFile" id="excelFile">
+				</div>
+				<button type="submit" class="btn btn-primary">添加</button>
+			</form>
+		</div>
+		{% if projects %}
+		<table class="table table-bordered">
+			<tr>
+				<th>序号</th>
+				<th>项目名称</th>
+				<th>机器人编号</th>
+				<th>操作</th>
+			</tr>
+			{% for u in projects %}
+			<tr>
+				<td>{{loop.index}}</td>
+				<td>{{u.projectName}}</td>
+				<td>{{u.robotId}}</td>
+				<td>
+					<a href="http://localhost:8080/project/edit/{{u.id}}"><button type="text" class="btn btn-success">编辑</button></a>  <a href="http://localhost:8080/project/delete/{{u.id}}"><button type="text" class="btn btn-danger">删除</button></a>
+				</td>
+			</tr>				
+			{% endfor %}
+		</table>
+		{% endif %}
+		<div class="row">
+			项目总数:{{totalNumber}}
+		</div>
+	</div>
+	<div class="container">
+		{% import 'project/pages.html' as pg %}
+		{% if pagination %}
+		{{pg.project_pagination(pagination, 'project.show')}}
+		{% endif %}
+	</div>
+	
+	{% endblock content %}
+
+
+
+</body>
+</html>

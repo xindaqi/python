@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>EditPrjInfo</title>
+	<meta charset="utf-8">
+</head>
+<body>
+	{%  extends 'bootstrap/base.html'%}
+	{% block title %}{% endblock %}
+	{% block content %}
+	<div class="container">
+		<div class="row"></div>
+		<div class="col-md-4 col-md-offset-4 col-sm-6 col-sm-offset-3">
+			<div class="page-heaer">
+				<h3>编辑项目信息</h3>
+			</div>
+			{% if prj %}
+			<form action="/project/edit/{{prj.id}}" method="POST">
+				<div class="form-group">
+					<label for="prjName">项目名称</label>
+					<input type="text" name="prjName" class="form-control" value={{prj.projectName}}>
+				</div>
+				<div class="form-group">
+					<label for="robotId">机器人Id</label>
+					<input type="text" name="robotId" class="form-control" value={{prj.robotId}}>
+				</div>
+				<button type="submit" class="btn btn-default">保存</button>
+				
+
+			</form>
+			{% endif %}
+		</div>
+	</div>
+	{% endblock content %}
+
+</body>
+</html>

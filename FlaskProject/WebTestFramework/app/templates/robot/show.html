@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>ShowRobotInfo</title>
+	<meta charset="utf-8">
+</head>
+<body>
+	{% extends 'bootstrap/base.html' %}
+	{% block title %}ShowRobotInfo{% endblock %}
+	{% block content%}
+	<div class="container">
+		<div class="row"></div>
+		<div class="page-header">
+			<h3>机器人信息</h3>
+		</div>
+		<div class="col-md-4 col-md-offset-4 col-sm-6 col-sm-offset-3">
+			<form action="/robot/query/" method="POST">
+				<input type="text" name="robotFlag" class="form-control" placeholder="请输入机器人编号">
+				<button type="submit" class="btn btn-defatult">查询</button>
+			</form>
+			<a href="http://localhost:8080/robot/add/">
+				<button type="text" class="btn btn-defatult">添加</button>
+			</a>
+			
+		</div>
+		{% if robots %}
+		<table class="table table-bordered">
+			<tr>
+				<th>序号</th>
+				<th>机器人名称</th>
+				<th>机器人编号</th>
+			</tr>
+			{% for u in robots %}
+			<tr>
+				<td>{{u.id}}</td>
+				<td>{{u.robotName}}</td>
+				<td>{{u.robotFlag}}</td>
+			</tr>
+			{% endfor %}
+		</table>
+		{% endif %}
+		{% if robotQuery %}
+		<table class="table table-bordered">
+			<tr>
+				<th>序号</th>
+				<th>机器人名称</th>
+				<th>机器人编号</th>
+			</tr>
+			<tr>
+				<td>{{robotQuery.id}}</td>
+				<td>{{robotQuery.robotName}}</td>
+				<td>{{robotQuery.robotFlag}}</td>
+			</tr>
+		</table>
+		{% endif %}
+
+	</div>
+
+	{% endblock content %}
+
+</body>
+</html>

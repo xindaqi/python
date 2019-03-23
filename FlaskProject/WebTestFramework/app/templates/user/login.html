@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>login</title>
+	<meta charset="utf-8">
+</head>
+<body>
+	<!-- 引入base -->
+	{% extends 'bootstrap/base.html' %}
+	<!-- 模块标题 -->
+	{% block title %}login{% endblock %}
+	{% block content %}
+	<div class="container">
+		<div class="row"></div>
+		<!-- 修改输入框长短及宽度 -->
+		<div class="col-md-4 col-md-offset-4 col-sm-6 col-sm-offset-3">
+			<div class="page-header">
+				<h3>欢迎登录</h3>
+			</div>
+			<form action="/user/login/" method="POST">
+				<div class="form-group">
+					<label for="username">用户名</label>
+					<input type="text" name="username" class="form-control" placeholder="请输入用户名">
+				</div>
+				<div class="form-group">
+					<label for="password">密码</label>
+					<input type="password" name="password" class="form-control" placeholder="请输入密码">
+				</div>
+				<button type="submit" class="btn btn-primary">登录</button>
+				<button type="submit" class="btn btn-info">注册</button>
+<!-- 				<button type="submit" class="btn btn-default">默认default</button>
+				<button type="submit" class="btn btn-primary">首选项primary</button>
+				<button type="submit" class="btn btn-success">成功success</button>
+				<button type="submit" class="btn btn-info">一般信息info</button>
+				<button type="submit" class="btn btn-warning">警告warning</button>
+				<button type="submit" class="btn btn-danger">警告danger</button>
+				<button type="submit" class="btn btn-link">链接link</button> -->
+			</form>
+		</div>
+	</div>
+	{% endblock content %}
+
+
+</body>
+</html>
+

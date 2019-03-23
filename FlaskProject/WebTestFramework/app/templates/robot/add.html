@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>AddRobotInfo</title>
+	<meta charset="utf-8">
+</head>
+<body>
+	{% extends 'bootstrap/base.html' %}
+	{% block title %}AddRobotInfo{% endblock %}
+	{% block content %}
+	<div class="container">
+		<div class="row"></div>
+		<div class="col-md-4 col-md-offset-4 col-sm-6 col-sm-offset-3">
+			<div class="page-header">
+				<h3>新建机器人</h3>
+			</div>
+			<form action="/robot/add/" method="POST">
+				<div class="form-group">
+					<label for="robotName">
+						机器人名称
+					</label>
+					<input type="text" name="robotName" class="form-control" placeholder="请输入机器人名称">
+					<label for="robotFlag">机器人Id</label>
+					<input type="text" name="robotFlag" class="form-control" placeholder="请输入机器人Id">
+				</div>
+				<button type="submit" class="btn btn-default">添加</button>
+			</form>
+		</div>
+	</div>
+	{% endblock content %}
+
+</body>
+</html>

@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>AddProjectInfo</title>
+	<meta charset="utf-8">
+</head>
+<body>
+	{% extends 'bootstrap/base.html' %}
+	{% block title %}AddPrjInfo{% endblock %}
+	{% block content %}
+	<div class="container">
+		<div class="row"></div>
+		<div class="col-md-4 col-md-offset-4 col-sm-6 col-sm-offset-3">
+			<div class="page-header">
+				<h3>新建项目</h3>
+			</div>
+			<form action="/project/add/" method="POST">
+				<div class="form-group">
+					<label for="prjname">项目名称</label>
+					<input type="text" name="prjName" class="form-control" placeholder="请输入项目名称">
+				</div>
+				<div class="form-group">
+					<label for="robotId">机器人Id</label>
+					<input type="text" name="robotId" class="form-control" placeholder="请输入机器人Id">
+				</div>
+				<button type="submit" class="btn btn-default">添加</button>
+			</form>
+		</div>
+	</div>
+
+	{% endblock content %}
+
+</body>
+</html>
