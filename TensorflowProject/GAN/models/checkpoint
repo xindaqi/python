@@ -1,0 +1,2 @@
+model_checkpoint_path: "gan_test.ckpt"
+all_model_checkpoint_paths: "gan_test.ckpt"
