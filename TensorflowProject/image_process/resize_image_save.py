@@ -1,5 +1,6 @@
 import tensorflow as tf 
 import os 
+import time
 from os.path import join
 import matplotlib.pyplot as plt
 
@@ -40,14 +41,29 @@ def reshape_image(image_path, sess):
 
 if __name__ == "__main__":
 	with tf.Session() as sess:
+		'''Open a coordinator'''
+		coord = tf.train.Coordinator()
+		'''Start queue and fill'''
+		threads = tf.train.start_queue_runners(sess=sess, coord=coord)
+		start_time = time.time()
 		image_path = "./images"
 		imgs_rgb = reshape_image(image_path,None, sess)
 		imgs_num = len(images_rgb)
 		# print("images number: {}, image value: {}".format(imgs_num, imgs_rgb))
-		for i in range(imgs_num):
-			plt.figure(figsize=(1.28, 1.28))
-			# plt.imshow(imgs_value[:,:,0], cmap="Greys_r")
-			plt.imshow(imgs_rgb[i])
-			plt.axis("off")
-			plt.savefig("./output_images/{}.png".format(i+1), format="png")
-			plt.show()
+		try:
+			while not coord.should_stop():
+				for i in range(imgs_num):
+					plt.figure(figsize=(1.28, 1.28))
+					# plt.imshow(imgs_value[:,:,0], cmap="Greys_r")
+					plt.imshow(imgs_rgb[i])
+					plt.axis("off")
+					plt.savefig("./output_images/{}.png".format(i+1), format="png")
+					plt.show()
+		except tf.errors.OutOfRangeError:
+			print("Executive finished.")
+		finally:
+			coord.request_stop()
+		coord.join(threads)
+		end_time = time.time()
+		time_costed = end_time - start_time
+		print("time costed: {}".format(time_costed))
