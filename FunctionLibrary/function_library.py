@@ -77,3 +77,21 @@ def get_folder_size(folder_path):
     except Exception as err:
         print(err)
 
+def copy_file(source_path, saved_path, num):
+    '''Copy file to another folder.
+    
+    :params source_path: file path which contains needed to copy file
+    :params saved_path: save the paste file
+    :params num: copied file number
+
+    return:
+    None
+    '''
+    if not os.path.exists(source_path):
+        os.makedirs(source_path)
+    if not os.path.exists(saved_path):
+        os.makedirs(saved_path)
+    images_name = os.listdir(source_path)
+    images_path = [os.path.join(source_path, f) for f in images_name]
+    for i in range(num):
+        shutil.copy(images_path[i], saved_path)
