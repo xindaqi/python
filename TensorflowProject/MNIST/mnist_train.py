@@ -58,7 +58,7 @@ def train(mnist):
 					sess, os.path.join(MODEL_SAVE_PATH, MODEL_NAME),
 					global_step=global_step)
 def main(argv=None):
-	mnist = input_data.read_data_sets("./mnist_data", one_hot=True)
+	mnist = input_data.read_data_sets("./MNIST_data", one_hot=True)
 	train(mnist)
 
 if __name__ == '__main__':
