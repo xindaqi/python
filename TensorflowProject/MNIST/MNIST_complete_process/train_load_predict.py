@@ -3,6 +3,11 @@ import os
 from os import path
 import tensorflow as tf 
 from tensorflow.examples.tutorials.mnist import input_data
+from sklearn.metrics import confusion_matrix
+import matplotlib.pyplot as plt
+from matplotlib.font_manager import FontProperties
+font = FontProperties(fname="/usr/share/fonts/truetype/arphic/ukai.ttc")
+
 
 '''Nerual Network structure.
 
@@ -148,30 +153,60 @@ def main(argv=None):
 	model_file = path.join(MODEL_SAVE_PATH, MODEL_NAME)
 	train(mnist, model_file, True)
 
-def load_model():
+def load_model(images_num):
 	'''Loading trained model and predict result which data extract from test datasets.'''
-	mnist = input_data.read_data_sets("../MNIST_data", one_hot=True)
-	images = mnist.test.images[0]
-	images = tf.expand_dims(images, [0])	
+	mnist = input_data.read_data_sets("./mnist_data", one_hot=True)
+	'''Extract images and labels from MNIST datasets.'''
+	images_data = [mnist.test.images[i] for i in range(images_num)]
+	images_label = [mnist.test.labels[i] for i in range(images_num)]
+	'''Load model parameters and structure.'''
 	saver = tf.train.import_meta_graph("./new_models/model.ckpt.meta")
 	model_params = tf.train.latest_checkpoint("./new_models")
+	'''Predict and train labels.'''
+	predict_lables = []
+	train_labels = []
 	with tf.Session() as sess:
-		images = sess.run(images)
-		print("images shape: {}".format(images.shape))
-		saver.restore(sess, model_params)
-		g = tf.get_default_graph()
-		pre = g.get_collection("y_pre")[0]
-		x = g.get_tensor_by_name("x_input:0")
-		'''Prediction value shape is (1, 10)'''
-		pre = sess.run(pre, feed_dict={x: images})
-		'''Get value coresponding number.'''
-		pre_num = tf.argmax(pre, 1)
-		pre_num = sess.run(pre_num)
-		print("predicted value's shape: {}".format(pre.shape))
-		print("predicted number: {}".format(pre_num[0]))
+		for i in range(images_num):
+			'''Expand data dims for argmax need data shape is (1, n).'''
+			train_label = tf.expand_dims(images_label[i], [0])
+			train_label = tf.argmax(train_label, 1)
+			train_label = sess.run(train_label)
+			'''Extract data from list such as [7].'''
+			train_labels.append(train_label[0])
+			images = tf.expand_dims(images_data[i], [0])
+			images = sess.run(images)
+			print("images shape: {}".format(images.shape))
+			saver.restore(sess, model_params)
+			g = tf.get_default_graph()
+			pre = g.get_collection("y_pre")[0]
+			x = g.get_tensor_by_name("x_input:0")
+			'''Prediction value shape is (1, 10)'''
+			pre = sess.run(pre, feed_dict={x: images})
+			print("prediction: {}".format(pre))
+			pre_value = pre[0]
+			print("Extract value from predicted result: {}".format(pre_value))
+			sum_pre = sum(pre_value.tolist())
+			print("sum predicted value: {}".format(sum_pre))
+			'''Get value coresponding number.'''
+			pre_num = tf.argmax(pre, 1)
+			pre_num = sess.run(pre_num)
+			predict_lables.append(pre_num[0])
+			# print("train data labels: {}".format(train_labels))
+			print("predicted value's shape: {}".format(pre.shape))
+			# print("predicted number: {}".format(pre_num[0]))
+		print("train data labels: {}".format(train_labels))
+		print("predicted number: {}".format(predict_lables))
+		conf_mx = confusion_matrix(train_labels, predict_lables)
+		print("confusion matrixs: \n {}".format(conf_mx))
+		if not os.path.exists("./images"):
+			os.makedirs("./images")
+		plt.matshow(conf_mx, cmap=plt.cm.gray)
+		plt.title("训练数据和预测数据的混淆矩阵", fontproperties=font)
+		plt.savefig("./images/confusion_matrix.png", format="png")
+		plt.show()
 
 if __name__ == '__main__':
 	'''This function for training model.'''
-	tf.app.run()
+	# tf.app.run()
 	'''This function for loading model and predict.'''
-	# load_model()
+	load_model(10)
