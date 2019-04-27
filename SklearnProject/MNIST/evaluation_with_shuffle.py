@@ -108,7 +108,7 @@ def sub_roc(fpr, tpr, label=None):
     plt.grid("True")
     plt.xlabel("假正类率", fontproperties=font)
     plt.ylabel("真正类率", fontproperties=font)
-    plt.savefig("./images/sub_aoc.png", format="png")
+    plt.savefig("./images/sub_roc.png", format="png")
     plt.show()
 sub_roc(fpr, tpr)
 def sub_auc(fpr, tpr, label=None):
