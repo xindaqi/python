@@ -153,8 +153,14 @@ def main(argv=None):
 	model_file = path.join(MODEL_SAVE_PATH, MODEL_NAME)
 	train(mnist, model_file, True)
 
-def load_model(images_num):
-	'''Loading trained model and predict result which data extract from test datasets.'''
+def load_model_with_graph_params(images_num):
+	'''Loading trained model with its graph structure and parameters,
+	and predict result which data extract from test datasets.
+
+	:params images_num: input images nubmer
+	Returns:
+	None
+	'''
 	mnist = input_data.read_data_sets("./mnist_data", one_hot=True)
 	'''Extract images and labels from MNIST datasets.'''
 	images_data = [mnist.test.images[i] for i in range(images_num)]
@@ -205,8 +211,70 @@ def load_model(images_num):
 		plt.savefig("./images/confusion_matrix.png", format="png")
 		plt.show()
 
+g_params = tf.Graph()
+with g_params.as_default():
+	x = tf.placeholder(tf.float32, [None, INPUT_NODE], name="x_input")
+	y_ = tf.placeholder(tf.float32, [None, OUTPUT_NODE], name='y_input')
+	regularizer = tf.contrib.layers.l2_regularizer(REGULARAZTION_RATE)
+	y = inference(x, regularizer)
+
+def load_model_only_with_params(images_num):
+	'''Loading trained model with its graph parameters expect graph structure,
+	and predict result which data extract from test datasets.
+
+	:params images_num: input images nubmer
+	Returns:
+	None
+	'''
+	mnist = input_data.read_data_sets("./mnist_data", one_hot=True)
+	'''Extract images and labels from MNIST datasets.'''
+	images_data = [mnist.test.images[i] for i in range(images_num)]
+	images_label = [mnist.test.labels[i] for i in range(images_num)]
+	'''Load model parameters.'''
+	
+	'''Predict and train labels.'''
+	predict_labels = []
+	train_labels = []
+	with tf.Session(graph=g_params) as sess:
+		saver = tf.train.Saver()
+		ckpt = tf.train.get_checkpoint_state("./new_models")
+		model_path = ckpt.model_checkpoint_path
+		saver.restore(sess, model_path)
+		for i in range(images_num):
+
+			train_label = tf.expand_dims(images_label[i], [0])
+			train_label = tf.argmax(train_label, 1)
+			train_label = sess.run(train_label)
+			'''Extract data from list such as [7].'''
+			train_labels.append(train_label[0])
+			images = tf.expand_dims(images_data[i], [0])
+			images = sess.run(images)
+#             print("images shape: {}".format(images.shape))
+			pre = sess.run(y, feed_dict={x: images})
+			pre_value = pre[0]
+			print("Extract value from predicted result: {}".format(pre_value))
+			sum_pre = sum(pre_value.tolist())
+			print("sum predicted value: {}".format(sum_pre))
+			'''Get value coresponding number.'''
+			pre_num = tf.argmax(pre, 1)
+			pre_num = sess.run(pre_num)
+			predict_labels.append(pre_num[0])
+		print("train data labels: {}".format(train_labels))
+		print("predicted number: {}".format(predict_labels))
+		conf_mx = confusion_matrix(train_labels, predict_labels)
+		print("confusion matrixs: \n {}".format(conf_mx))
+		if not os.path.exists("./images"):
+			os.makedirs("./images")
+		plt.matshow(conf_mx, cmap=plt.cm.gray)
+		plt.title("训练数据和预测数据的混淆矩阵", fontproperties=font)
+		plt.savefig("./images/confusion_matrix.png", format="png")
+		plt.show()
+
+
 if __name__ == '__main__':
 	'''This function for training model.'''
 	# tf.app.run()
 	'''This function for loading model and predict.'''
-	load_model(10)
+	# load_model_with_graph_params(10)
+	load_model_only_with_params(10)
+
