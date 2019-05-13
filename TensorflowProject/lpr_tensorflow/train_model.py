@@ -77,8 +77,8 @@ if __name__ == "__main__":
                 os.makedirs("./model")
             saver = tf.train.Saver()
             if step % 10 == 0:
-                print("loss1:{}, loss2:{}, loss3:{}, loss4:{}, loss5:{}, loss6:{}, loss7: {}".format(loss_1, loss_2, loss_3, loss_4, loss_5, loss_6, loss_7))
-                print("Total loss: {}, accuracy: {}".format(loss_all, acc))
+                print("loss1:{:.2f}, loss2:{:.2f}, loss3:{:.2f}, loss4:{:.2f}, loss5:{:.2f}, loss6:{:.2f}, loss7: {:.2f}".format(loss_1, loss_2, loss_3, loss_4, loss_5, loss_6, loss_7))
+                print("Total loss: {:.2f}, accuracy: {:.2f}".format(loss_all, acc))
                 
             if step % 1000 == 0 | (step+1) == count:
                 saver.save(sess, save_path=ckpt_dir, global_step=step)
