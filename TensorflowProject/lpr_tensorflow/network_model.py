@@ -63,7 +63,8 @@ def fullc(input_tensor, wsize, name_w, name_b):
     '''
     weights = tf.get_variable(name=name_w, shape=wsize, dtype=tf.float32, initializer=tf.truncated_normal_initializer(stddev=0.1))
     biases = tf.get_variable(name=name_b, shape=[wsize[-1]], dtype=tf.float32, initializer=tf.constant_initializer(0.1))
-    fullc = tf.nn.relu_layer(input_tensor, weights, biases)
+    # fullc = tf.nn.relu_layer(input_tensor, weights, biases)
+    fullc = tf.matmul(input_tensor, weights) + biases
     return fullc
 
 def small_basic_block(input_tensor, ksize, strides, pad):
