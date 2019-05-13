@@ -121,12 +121,12 @@ def inference(inputs, keep_prob):
 
     with tf.name_scope("max_pool_3"):
         '''output data:[batch_size, 36, 136, 64]'''
-        pooling_1 = max_pooling(conv_6, [1,2,2,1], [1,2,2,1], "VALID")
+        pooling_3 = max_pooling(conv_6, [1,2,2,1], [1,2,2,1], "VALID")
 
     with tf.name_scope("fullc_1"):
-        output_shape = pooling_1.get_shape()
+        output_shape = pooling_3.get_shape()
         flatten_1 = output_shape[1].value*output_shape[2].value*output_shape[3].value
-        reshape_output = tf.reshape(pooling_1, [-1, flatten_1])
+        reshape_output = tf.reshape(pooling_3, [-1, flatten_1])
         fc_1 = tf.nn.dropout(reshape_output, keep_prob)
 
     with tf.name_scope("fullc_21"):
