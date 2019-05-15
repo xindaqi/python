@@ -88,7 +88,11 @@ def train_with_reset_graph():
         summary_writer.close()
 
 def train_without_reset_graph():
-    # saver = tf.train.Saver()
+    '''Reload model structure in global environment, 
+    which can avoid add node to graph for each training and 
+    reduce its computation.
+    ''' 
+    saver = tf.train.Saver()
     with tf.Session() as sess:
         init_op = tf.global_variables_initializer()
         sess.run(init_op)
@@ -113,7 +117,7 @@ def train_without_reset_graph():
                 print("Total loss: {:.2f}, accuracy: {:.2f}, steps: {}, time cost: {}".format(loss_all, acc, step, time_cost))
                 
             if step % 10 == 0 or (step+1) == count:
-                saver = tf.train.Saver()
+                # saver = tf.train.Saver()
                 saver.save(sess, save_path=ckpt_dir, global_step=step)        
     summary_writer.close()
 def train_without_context_session():
