@@ -8,21 +8,13 @@ tf.reset_default_graph()
 MODEL_SAVE_PATH = "./models"
 MODEL_NAME = "rnnmodel.ckpt"
 
-'''隐藏层节点'''
 HIDDEN_SIZE = 30
-'''层数'''
 NUM_LAYERS = 2
-'''训练序列长度'''
 TIMESTEPS = 10
-'''训练步数'''
 TRAINING_STEPS = 10000
-'''bactch'''
 BATCH_SIZE = 32
-'''训练数据个数'''
 TRAINING_EXAMPLES = 10000
-'''测试数据个数'''
 TESTING_EXAMPLES = 1000
-'''采样间隔'''
 SAMPLE_GAP = 0.01
 
 def generate_data(seq):
@@ -34,6 +26,18 @@ def generate_data(seq):
     return np.array(X, dtype=np.float32), np.array(y, dtype=np.float32)
 
 def lstm_model(X, y, is_training):
+    '''Create lstm model structure.
+    
+    Args:
+        X: source data for train
+        y: sourde data label for optimize
+        is_training: bool, flag for training or not 
+
+    Returns:
+        predictions: predicted value
+        loss: loss value between predicted value and labels
+        train_op: optimize operation 
+    '''
     cell = tf.nn.rnn_cell.MultiRNNCell([
         tf.nn.rnn_cell.BasicLSTMCell(HIDDEN_SIZE)
         for _ in range(NUM_LAYERS)
@@ -53,8 +57,40 @@ def lstm_model(X, y, is_training):
         learning_rate = 0.1
     )
     return predictions, loss, train_op
-  
-       
+
+def train(sess, train_X, train_y):
+    '''Train lstm model structure.
+    Args:
+        sess: tensorflow session
+        train_X: source data for train
+        train_y: source data labels
+    
+    Returns:
+        None
+    '''
+    X = tf.placeholder(tf.float32, [BATCH_SIZE, 1, 10])
+    y = tf.placeholder(tf.float32, [BATCH_SIZE, 1])
+    predictions, loss, train_op = lstm_model(X, y, True)
+             
+    init_op = tf.global_variables_initializer()
+    sess.run(init_op)
+    saver = tf.train.Saver()
+    ds = tf.data.Dataset.from_tensor_slices((train_X, train_y))
+    ds = ds.repeat().shuffle(1000).batch(BATCH_SIZE)
+    x_input, y_input = ds.make_one_shot_iterator().get_next()
+    x_input, y_input = sess.run([x_input, y_input])
+    for i in range(TRAINING_STEPS):
+        _, l = sess.run([train_op, loss], feed_dict={X: x_input, y: y_input})
+        if i % 1000 == 0:
+            print("train step:{}, loss: {}".format(str(i), str(l)))
+            saver.save(sess, os.path.join(MODEL_SAVE_PATH, MODEL_NAME))  
+
+def train_model():
+    '''Train model engine.'''
+    with tf.Session() as sess:
+        train(sess, train_X, train_y)
+
+'''Graph structure.'''            
 g_params = tf.Graph()
 with g_params.as_default():
     X = tf.placeholder(tf.float32, [None, 1, 10])
@@ -62,7 +98,8 @@ with g_params.as_default():
     predictions, loss, train_op = lstm_model(X, [0.0], False)
     
 def load_model():
-    outputs = []
+    '''Load model and predicting value.'''
+    pre_outputs = []
     with tf.Session(graph=g_params) as sess:
         saver = tf.train.Saver()
         ckpt = tf.train.get_checkpoint_state("./models")
@@ -70,21 +107,22 @@ def load_model():
         saver.restore(sess, model_path)
         for i in range(TESTING_EXAMPLES):
             input_data = np.expand_dims(test_X[i], 0)
-#             print("input data: {}".format(input_data.shape))
             pre = sess.run(predictions, feed_dict={X: input_data})
-            outputs.append(pre)
-#             print("prediction value: {}".format(pre))
-    outputs = np.array(outputs).squeeze()
+            pre_outputs.append(pre)
+    outputs = np.array(pre_outputs).squeeze()
     plt.figure()
     plt.plot(outputs, label='predictions', marker='x', color='r')
-#     plt.plot(y, label='real_sin', marker='|', color='b')
+    plt.plot(test_y, label='real_sin', marker='|', color='b')
     plt.legend()
     plt.show()
     
+test_start = (TRAINING_EXAMPLES+TIMESTEPS)*SAMPLE_GAP
+test_end = test_start+(TESTING_EXAMPLES+TIMESTEPS)*SAMPLE_GAP
+
+train_X, train_y = generate_data(np.sin(np.linspace(0, test_start, TRAINING_EXAMPLES+TIMESTEPS, dtype=np.float32)))
+test_X, test_y = generate_data(np.sin(np.linspace(test_start, test_end, TESTING_EXAMPLES+TIMESTEPS, dtype=np.float32)))
     
 if __name__ == "__main__":
 #     train_model()
     load_model()
     
-
-
