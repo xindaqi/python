@@ -1,0 +1,266 @@
+digraph googlenet{
+    softmax2 -> SoftmaxActivation1[dir=back];
+    SoftmaxActivation1 -> FC1[dir=back];
+    FC1 -> AveragePool1[dir=back];
+    AveragePool1 -> DepthConcat1[dir=back];
+    DepthConcat1 -> Conv21_1[dir=back];
+    DepthConcat1 -> Conv21_2[dir=back];
+    DepthConcat1 -> Conv21_3[dir=back];
+    DepthConcat1 -> Conv21_4[dir=back];
+    Conv21_1 -> DepthConcat2[dir=back];
+    Conv21_2 -> Conv20_1[dir=back];
+    Conv21_3 -> Conv20_2[dir=back];
+    Conv21_4 -> MaxPool1[dir=back];
+    Conv20_1 -> DepthConcat2[dir=back];
+    Conv20_2 -> DepthConcat2[dir=back];
+    MaxPool1 -> DepthConcat2[dir=back];
+    DepthConcat2 -> Conv19_1[dir=back];
+    DepthConcat2 -> Conv19_2[dir=back];
+    DepthConcat2 -> Conv19_3[dir=back];
+    DepthConcat2 -> Conv19_4[dir=back];
+    Conv19_1 -> MaxPool3[dir=back];
+    Conv19_2 -> Conv18_1[dir=back];
+    Conv19_3 -> Conv18_2[dir=back];
+    Conv19_4 -> MaxPool2[dir=back];
+    Conv18_1 -> MaxPool3[dir=back];
+    Conv18_2 -> MaxPool3[dir=back];
+    MaxPool2 -> MaxPool3[dir=back];
+    MaxPool3 -> DepthConcat3[dir=back];
+    DepthConcat3 -> Conv17_1[dir=back];
+    DepthConcat3 -> Conv17_2[dir=back];
+    DepthConcat3 -> Conv17_3[dir=back];
+    DepthConcat3 -> Conv17_4[dir=back];
+    Conv17_1 -> DepthConcat4[dir=back];
+    Conv17_2 -> Conv16_1[dir=back];
+    Conv17_3 -> Conv16_2[dir=back];
+    Conv17_4 -> MaxPool4[dir=back];
+    Conv17_5 -> AveragePool2[dir=back];
+    Conv16_1 -> DepthConcat4[dir=back];
+    Conv16_2 -> DepthConcat4[dir=back];
+    MaxPool4 -> DepthConcat4[dir=back];
+    softmax1 -> SoftmaxActivation2[dir=back];
+    SoftmaxActivation2 -> FC3[dir=back];
+    FC3 -> FC2[dir=back];
+    FC2 -> Conv17_5[dir=back]
+    AveragePool2 -> DepthConcat4[dir=back];
+    DepthConcat4 -> Conv15_1[dir=back];
+    DepthConcat4 -> Conv15_2[dir=back];
+    DepthConcat4 -> Conv15_3[dir=back];
+    DepthConcat4 -> Conv15_4[dir=back];
+    Conv15_1 -> DepthConcat5[dir=back];
+    Conv15_2 -> Conv14_1[dir=back];
+    Conv15_3 -> Conv14_2[dir=back];
+    Conv15_4 -> MaxPool5[dir=back];
+    Conv14_1 -> DepthConcat5[dir=back];
+    Conv14_2 -> DepthConcat5[dir=back];
+    MaxPool5 -> DepthConcat5[dir=back];
+    DepthConcat5 -> Conv13_1[dir=back];
+    DepthConcat5 -> Conv13_2[dir=back];
+    DepthConcat5 -> Conv13_3[dir=back];
+    DepthConcat5 -> Conv13_4[dir=back];
+    Conv13_1 -> DepthConcat6[dir=back];
+    Conv13_2 -> Conv12_1[dir=back];
+    Conv13_3 -> Conv12_2[dir=back];
+    Conv13_4 -> MaxPool6[dir=back];
+    Conv12_1 -> DepthConcat6[dir=back];
+    Conv12_2 -> DepthConcat6[dir=back];
+    MaxPool6 -> DepthConcat6[dir=back];
+    DepthConcat6 -> Conv11_1[dir=back];
+    DepthConcat6 -> Conv11_2[dir=back];
+    DepthConcat6 -> Conv11_3[dir=back];
+    DepthConcat6 -> Conv11_4[dir=back];
+    Conv11_1 -> DepthConcat7[dir=back];
+    Conv11_2 -> Conv10_1[dir=back];
+    Conv11_3 -> Conv10_2[dir=back];
+    Conv11_4 -> MaxPool7[dir=back];
+    softmax0 -> SoftmaxActivation3[dir=back];
+    SoftmaxActivation3 -> FC4[dir=back];
+    FC4 -> FC5[dir=back];
+    FC5 -> Conv11_5[dir=back];
+    Conv11_5 -> AveragePool3[dir=back];
+    Conv10_1 -> DepthConcat7[dir=back];
+    Conv10_2 -> DepthConcat7[dir=back];
+    MaxPool7 -> DepthConcat7[dir=back];
+    AveragePool3 -> DepthConcat7[dir=back];
+    DepthConcat7 -> Conv9_1[dir=back];
+    DepthConcat7 -> Conv9_2[dir=back];
+    DepthConcat7 -> Conv9_3[dir=back];
+    DepthConcat7 -> Conv9_4[dir=back];
+    Conv9_1 -> MaxPool9[dir=back];
+    Conv9_2 -> Conv8_1[dir=back];
+    Conv9_3 -> Conv8_2[dir=back];
+    Conv9_4 -> MaxPool8[dir=back];
+    Conv8_1 -> MaxPool9[dir=back];
+    Conv8_2 -> MaxPool9[dir=back];
+    MaxPool8 -> MaxPool9[dir=back];
+    MaxPool9 -> DepthConcat8[dir=back];
+    DepthConcat8 -> Conv7_1[dir=back];
+    DepthConcat8 -> Conv7_2[dir=back];
+    DepthConcat8 -> Conv7_3[dir=back];
+    DepthConcat8 -> Conv7_4[dir=back];
+    Conv7_1 -> DepthConcat9[dir=back];
+    Conv7_2 -> Conv6_1[dir=back];
+    Conv7_3 -> Conv6_2[dir=back];
+    Conv7_4 -> MaxPool10[dir=back];
+    Conv6_1 -> DepthConcat9[dir=back];
+    Conv6_2 -> DepthConcat9[dir=back];
+    MaxPool10 -> DepthConcat9[dir=back];
+    DepthConcat9 -> Conv5_1[dir=back];
+    DepthConcat9 -> Conv5_2[dir=back];
+    DepthConcat9 -> Conv5_3[dir=back];
+    DepthConcat9 -> Conv5_4[dir=back];
+    Conv5_1 -> MaxPool12[dir=back];
+    Conv5_2 -> Conv4_1[dir=back];
+    Conv5_3 -> Conv4_2[dir=back];
+    Conv5_4 -> MaxPool11[dir=back];
+    Conv4_1 -> MaxPool12[dir=back];
+    Conv4_2 -> MaxPool12[dir=back];
+    MaxPool11 -> MaxPool12[dir=back];
+    MaxPool12 -> LocalRespNorm1[dir=back];
+    LocalRespNorm1 -> Conv3[dir=back];
+    Conv3 -> Conv2[dir=back];
+    Conv2 -> LocalRespNorm2[dir=back];
+    LocalRespNorm2 -> MaxPool13[dir=back];
+    MaxPool13 -> Conv1[dir=back];  
+    Conv1 -> input[dir=back];
+
+    softmax2 [shape=octagon];
+
+    SoftmaxActivation1 [shape=box, color=gold, style=filled, label="SoftmaxActivation"];
+
+    FC1 [shape=box, color=dodgerblue2, style=filled, label="FC"];
+
+    AveragePool1 [shape=box, color=firebrick2, style=filled, label="AveragePool \n 7×7+1(V)"];
+    
+    DepthConcat1 [shape=box, color=forestgreen, style=filled, label="DepthConcat"];
+    
+    Conv21_1 [shape=box, color=dodgerblue2, style=filled, label="Conv \n 1×1+1(S)"];
+    Conv21_2 [shape=box, color=dodgerblue2, style=filled, label="Conv \n 3×3+1(S)"];
+    Conv21_3 [shape=box, color=dodgerblue2, style=filled, label="Conv \n 5×5+1(S)"];
+    Conv21_4 [shape=box, color=dodgerblue2, style=filled, label="Conv \n 1×1+1(S)"];
+    
+    Conv20_1 [shape=box, color=dodgerblue2, style=filled, label="Conv \n 1×1+1(S)"];
+    Conv20_2 [shape=box, color=dodgerblue2, style=filled, label="Conv \n 1×1+1(S)"];
+    MaxPool1 [shape=box, color=firebrick2, style=filled, label="MaxPool \n 3×3+1(S)"];
+    
+    DepthConcat2 [shape=box, color=forestgreen, style=filled, label="DepthConcat"];
+    
+    Conv19_1 [shape=box, color=dodgerblue2, style=filled, label="Conv \n 1×1+1(S)"];
+    Conv19_2 [shape=box, color=dodgerblue2, style=filled, label="Conv \n 3×3+1(S)"];
+    Conv19_3 [shape=box, color=dodgerblue2, style=filled, label="Conv \n 5×5+1(S)"];
+    Conv19_4 [shape=box, color=dodgerblue2, style=filled, label="Conv \n 1×1+1(S)"];
+    
+    Conv18_1 [shape=box, color=dodgerblue2, style=filled, label="Conv \n 1×1+1(S)"];
+    Conv18_2 [shape=box, color=dodgerblue2, style=filled, label="Conv \n 1×1+1(S)"];
+    MaxPool2 [shape=box, color=firebrick2, style=filled, label="MaxPool \n 3×3+1(S)"];
+    
+    MaxPool3 [shape=box, color=firebrick2, style=filled, label="MaxPool \n 3×3+2(S)"];
+    
+    DepthConcat3 [shape=box, color=forestgreen, style=filled, label="DepthConcat"];
+    
+    Conv17_1 [shape=box, color=dodgerblue2, style=filled, label="Conv \n 1×1+1(S)"];
+    Conv17_2 [shape=box, color=dodgerblue2, style=filled, label="Conv \n 3×3+1(S)"];
+    Conv17_3 [shape=box, color=dodgerblue2, style=filled, label="Conv \n 5×5+1(S)"];
+    Conv17_4 [shape=box, color=dodgerblue2, style=filled, label="Conv \n 1×1+1(S)"];
+    Conv17_5 [shape=box, color=dodgerblue2, style=filled, label="Conv \n 1×1+1(S)"];
+    
+    FC2 [shape=box, color=dodgerblue2, style=filled, label="FC"];
+    FC3 [shape=box, color=dodgerblue2, style=filled, label="FC"];
+    SoftmaxActivation2 [shape=box, color=gold, style=filled, label="SoftmaxActivation"];
+    softmax1 [shape=octagon];
+
+    Conv16_1 [shape=box, color=dodgerblue2, style=filled, label="Conv \n 1×1+1(S)"];
+    Conv16_2 [shape=box, color=dodgerblue2, style=filled, label="Conv \n 1×1+1(S)"];
+    MaxPool4 [shape=box, color=firebrick2, style=filled, label="MaxPool \n 3×3+1(S)"];
+    AveragePool2 [shape=box, color=firebrick2, style=filled, label="AveragePool \n 5×5+3(V)"];
+    
+    DepthConcat4 [shape=box, color=forestgreen, style=filled, label="DepthConcat"];
+
+    Conv15_1 [shape=box, color=dodgerblue2, style=filled, label="Conv \n 1×1+1(S)"];
+    Conv15_2 [shape=box, color=dodgerblue2, style=filled, label="Conv \n 3×3+1(S)"];
+    Conv15_3 [shape=box, color=dodgerblue2, style=filled, label="Conv \n 5×5+1(S)"];
+    Conv15_4 [shape=box, color=dodgerblue2, style=filled, label="Conv \n 1×1+1(S)"];
+    
+    Conv14_1 [shape=box, color=dodgerblue2, style=filled, label="Conv \n 1×1+1(S)"];
+    Conv14_2 [shape=box, color=dodgerblue2, style=filled, label="Conv \n 1×1+1(S)"];
+    MaxPool5 [shape=box, color=firebrick2, style=filled, label="MaxPool \n 3×3+1(S)"];
+    
+    DepthConcat5 [shape=box, color=forestgreen, style=filled, label="DepthConcat"];
+    
+    Conv13_1 [shape=box, color=dodgerblue2, style=filled, label="Conv \n 1×1+1(S)"];
+    Conv13_2 [shape=box, color=dodgerblue2, style=filled, label="Conv \n 3×3+1(S)"];
+    Conv13_3 [shape=box, color=dodgerblue2, style=filled, label="Conv \n 5×5+1(S)"];
+    Conv13_4 [shape=box, color=dodgerblue2, style=filled, label="Conv \n 1×1+1(S)"];
+    
+    Conv12_1 [shape=box, color=dodgerblue2, style=filled, label="Conv \n 1×1+1(S)"];
+    Conv12_2 [shape=box, color=dodgerblue2, style=filled, label="Conv \n 1×1+1(S)"];
+    MaxPool6 [shape=box, color=firebrick2, style=filled, label="MaxPool \n 3×3+1(S)"];
+    
+    DepthConcat6 [shape=box, color=forestgreen, style=filled, label="DepthConcat"];
+    
+    Conv11_1 [shape=box, color=dodgerblue2, style=filled, label="Conv \n 1×1+1(S)"];
+    Conv11_2 [shape=box, color=dodgerblue2, style=filled, label="Conv \n 3×3+1(S)"];
+    Conv11_3 [shape=box, color=dodgerblue2, style=filled, label="Conv \n 5×5+1(S)"];
+    Conv11_4 [shape=box, color=dodgerblue2, style=filled, label="Conv \n 1×1+1(S)"];
+    Conv11_5 [shape=box, color=dodgerblue2, style=filled, label="Conv \n 1×1+1(S)"];
+    
+    FC4 [shape=box, color=dodgerblue2, style=filled, label="FC"];
+    FC5 [shape=box, color=dodgerblue2, style=filled, label="FC"];
+    SoftmaxActivation3 [shape=box, color=gold, style=filled, label="SoftmaxActivation"];
+    softmax0 [shape=octagon];
+
+    Conv10_1 [shape=box, color=dodgerblue2, style=filled, label="Conv \n 1×1+1(S)"];
+    Conv10_2 [shape=box, color=dodgerblue2, style=filled, label="Conv \n 1×1+1(S)"];
+    MaxPool7 [shape=box, color=firebrick2, style=filled, label="MaxPool \n 3×3+1(S)"];
+    AveragePool3 [shape=box, color=firebrick2, style=filled, label="AveragePool \n 5×5+3(V)"];
+    
+    DepthConcat7 [shape=box, color=forestgreen, style=filled, label="DepthConcat"];
+
+    Conv9_1 [shape=box, color=dodgerblue2, style=filled, label="Conv \n 1×1+1(S)"];
+    Conv9_2 [shape=box, color=dodgerblue2, style=filled, label="Conv \n 3×3+1(S)"];
+    Conv9_3 [shape=box, color=dodgerblue2, style=filled, label="Conv \n 5×5+1(S)"];
+    Conv9_4 [shape=box, color=dodgerblue2, style=filled, label="Conv \n 1×1+1(S)"];
+
+    Conv8_1 [shape=box, color=dodgerblue2, style=filled, label="Conv \n 1×1+1(S)"];
+    Conv8_2 [shape=box, color=dodgerblue2, style=filled, label="Conv \n 1×1+1(S)"];
+    MaxPool8 [shape=box, color=firebrick2, style=filled, label="MaxPool \n 3×3+1(S)"];
+    
+    MaxPool9 [shape=box, color=firebrick2, style=filled, label="MaxPool \n 3×3+2(S)"];
+    
+    DepthConcat8 [shape=box, color=forestgreen, style=filled, label="DepthConcat"];
+    
+    Conv7_1 [shape=box, color=dodgerblue2, style=filled, label="Conv \n 1×1+1(S)"];
+    Conv7_2 [shape=box, color=dodgerblue2, style=filled, label="Conv \n 3×3+1(S)"];
+    Conv7_3 [shape=box, color=dodgerblue2, style=filled, label="Conv \n 5×5+1(S)"];
+    Conv7_4 [shape=box, color=dodgerblue2, style=filled, label="Conv \n 1×1+1(S)"];
+
+    Conv6_1 [shape=box, color=dodgerblue2, style=filled, label="Conv \n 1×1+1(S)"];
+    Conv6_2 [shape=box, color=dodgerblue2, style=filled, label="Conv \n 1×1+1(S)"];
+    MaxPool10 [shape=box, color=firebrick2, style=filled, label="MaxPool \n 3×3+1(S)"];
+    
+    DepthConcat9 [shape=box, color=forestgreen, style=filled, label="DepthConcat"];
+
+    Conv5_1 [shape=box, color=dodgerblue2, style=filled, label="Conv \n 1×1+1(S)"];
+    Conv5_2 [shape=box, color=dodgerblue2, style=filled, label="Conv \n 3×3+1(S)"];
+    Conv5_3 [shape=box, color=dodgerblue2, style=filled, label="Conv \n 5×5+1(S)"];
+    Conv5_4 [shape=box, color=dodgerblue2, style=filled, label="Conv \n 1×1+1(S)"];
+
+    Conv4_1 [shape=box, color=dodgerblue2, style=filled, label="Conv \n 1×1+1(S)"];
+    Conv4_2 [shape=box, color=dodgerblue2, style=filled, label="Conv \n 1×1+1(S)"];
+    MaxPool11 [shape=box, color=firebrick2, style=filled, label="MaxPool \n 3×3+1(S)"];
+    
+    MaxPool12 [shape=box, color=firebrick2, style=filled, label="MaxPool \n 3×3+2(S)"];
+    LocalRespNorm1 [shape=box, color=forestgreen, style=filled, label="LocalRespNorm"];
+
+    Conv3 [shape=box, color=dodgerblue2, style=filled, label="Conv \n 3×3+1(S)"];
+
+    Conv2 [shape=box, color=dodgerblue2, style=filled, label="Conv \n 1×1+1(V)"];
+
+    LocalRespNorm2 [shape=box, color=forestgreen, style=filled, label="LocalRespNorm"];
+
+    MaxPool13 [shape=box, color=firebrick2, style=filled, label="MaxPool \n 3×3+2(S)"];
+
+    Conv1 [shape=box, color=dodgerblue2, style=filled, label="Conv \n 7×7+2(S)"];
+    
+    input [shape=octagon]
+}
