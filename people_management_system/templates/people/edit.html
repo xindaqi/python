@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>EditUserInfo</title>
+	<meta charset="utf-8">
+</head>
+<body>
+	{%  extends 'bootstrap/base.html'%}
+	{% block title %}{% endblock %}
+	{% block content %}
+	<div class="container">
+		<div class="row"></div>
+		<div class="col-md-4 col-md-offset-4 col-sm-6 col-sm-offset-3">
+			<div class="page-heaer">
+				<h3>修改用户信息</h3>
+			</div>
+			{% if users %}
+			<form action="/api/display/user/edit/{{users.id}}" method="POST">
+				<div class="form-group">
+					<label for="u_id">用户ID</label>
+					<input type="text" name="u_id" class="form-control" value={{users.u_id}}>
+				</div>
+				<div class="form-group">
+					<label for="u_name">用户姓名</label>
+					<input type="text" name="u_name" class="form-control" value={{users.u_name}}>
+				</div>
+				<div class="form-group">
+					<label for="u_phone">用户电话</label>
+					<input type="text" name="u_phone" class="form-control" value={{users.u_phone}}>
+				</div>
+				<button type="submit" class="btn btn-default">保存</button>
+				
+
+			</form>
+			{% endif %}
+		</div>
+	</div>
+	{% endblock content %}
+
+</body>
+</html>

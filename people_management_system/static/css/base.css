@@ -1,0 +1,20 @@
+body{
+    background: #F3F3F3;
+}
+
+.navbar-default{
+    margin-bottom: 0px;
+}
+.navbar-brand{
+    padding: 0 5px;
+    padding-right: 10px;
+}
+.logo{
+    height: 50px;
+}
+
+.home_img img{
+    background-size: contain|cover;
+    width: 100%;
+    height: auto;
+}

@@ -1,0 +1,29 @@
+.navbars{
+    margin-bottom: 0px;
+}
+.navbar-defaults{
+    margin-bottom: 0px;
+    border-color: #e7e7e7;
+}
+
+.container
+.navbar-header
+.container .nav-header .txt{
+    position: relative;
+    text-align: center;
+    margin-bottom: 0px;
+}
+
+.navbar-brands{
+    padding: 0px;
+    /* padding-right: 5px; */
+}
+.logo {
+    height: 50px;
+}
+
+.collapse
+.navbar-form
+.form-group{
+    right: 0px;
+}

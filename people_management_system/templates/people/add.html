@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>AddProjectInfo</title>
+    <meta charset="utf-8">
+    <script>
+        function all_select(check_v, checkname){
+            var v_item = document.getElementsByName(check_v);
+            // console.log("全选");
+            // console.log(v_item[0].checked)
+            var items = document.getElementsByName(checkname);
+            for(var i=0;i<items.length;i++){
+                if(v_item[0].checked){
+                    items[i].checked = true;
+                }
+                else{
+                    items[i].checked = false;
+                }
+            }
+        }
+        function single_select(check_v, checkname){
+            var v_item = document.getElementsByName(check_v);
+            var items = document.getElementsByName(checkname);
+            var child_status = true;
+            for(var i=0; i<items.length; i++){
+                child_status = (child_status && items[i].checked);
+            }
+            if(child_status){
+                v_item[0].checked = true;
+            }else{
+                v_item[0].checked = false;
+            }
+        }
+    </script>
+</head>
+<body>
+	{% extends 'bootstrap/base.html' %}
+	{% block title %}AddPrjInfo{% endblock %}
+	{% block content %}
+	<div class="container">
+		<div class="row"></div>
+		<div class="col-md-4 col-md-offset-4 col-sm-6 col-sm-offset-3">
+			<div class="page-header">
+				<h3>添加用户</h3>
+			</div>
+			<form action="/api/display/user/add" method="POST">
+				<div class="form-group">
+					<label for="u_id">用户ID</label>
+					<input type="text" name="u_id" class="form-control" placeholder="请输入用户ID">
+				</div>
+				<div class="form-group">
+					<label for="u_name">用户名</label>
+					<input type="text" name="u_name" class="form-control" placeholder="请输入用户名">
+                </div>
+                <div class="form-group">
+                    <label for="u_phone">用户手机号</label>
+                    <input type="text" name="u_phone" class="form-control" placeholder="请输入用户手机号">
+                </div>
+                <div class="from-group">
+                    <label for="project">算法厂家</label>
+                    <p><input type="checkbox" name="all_check" value="所有厂家" onclick="all_select('all_check', 'algorithm_company')">所有厂家</p>
+                    <ul>
+                        <p><input type="checkbox" checked name="algorithm_company" value="华为" onclick="single_select('all_check', 'algorithm_company')">华为</p>
+                        <p><input type="checkbox" name="algorithm_company" value="商汤" onclick="single_select('all_check', 'algorithm_company')">商汤</p>
+                    </ul>
+                </div>
+				<button type="submit" class="btn btn-default">添加</button>
+			</form>
+		</div>
+	</div>
+
+	{% endblock content %}
+
+</body>
+</html>
