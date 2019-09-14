@@ -1,0 +1,89 @@
+body, html{
+    width: 100%;
+    height: 100%;
+    padding: 0;
+    margin: 0;
+} 
+.containers {
+    /* color: blue; */
+    
+    background-color: plum;
+    margin: 50px 100px 100px 250px;
+    /* padding: 100px 100px 100px 200px; */
+}
+/* .test_align{
+    text-align: center;
+    background-color: pink;
+} */
+.containers 
+.page-header{
+    text-align: left;
+}
+.rows{
+    text-align: right;
+    font-weight: bold;
+}
+
+.container-page 
+
+.pagination-set{
+    /* position: absolute;  */
+    /* position: relative; */
+    /* right: -980px; */
+    text-align: right;
+}
+
+.container .insert_row 
+/* .btn{
+    position: relative;
+    right: -10px;
+} */
+
+
+/* .text_align_1{
+    display: inline;
+    text-align: left;
+}
+.text_align_2{
+    display: inline;
+    text-align: left;
+} */
+
+.add_excel_data
+.excel_row{
+    position: relative;
+    display: inline;
+}
+.add_row{
+    position: relative;
+    display: inline;
+}
+
+.content_search{
+    /* margin: 0 auto; */
+    width: 641px;
+    height: 35px;
+    left: 0;
+}
+
+.btn_add_fn{
+    position: relative;
+    display: inline;
+}
+.btn_search_fn{
+    position: relative;
+    display: inline;
+}
+
+.form-group{
+    position: relative;
+    right: -20px;
+    display: inline;
+}
+
+.navbar 
+
+.navbar-default{
+    margin-bottom: 0px;
+}
+

@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<!-- <link rel="stylesheet" type="text/css" href="https://cdn.bootcss.com/bootstrap/3.3.7/css/bootstrap.min.css"> -->
+	<title>ShowPrjInfo</title>
+	<meta charset="utf-8">
+	<link rel="stylesheet" href="{{url_for('static', filename='css/module.css')}}">
+</head>
+<body>
+	{% extends 'bootstrap/base.html' %}
+	
+	{% block title %}ShowPrjInfo{% endblock %}
+	{% block content %}
+		
+	{% include "users/navbar.html" %}
+	
+	{% include './sidebar.html' %}
+	
+	<div class="containers">
+		<!-- <div class="test_align">测试css</div> -->
+		<!-- <div class="row"></div> -->
+		<div class="page-header">
+			<h3>项目信息</h3>
+		</div>
+		<div class="insert_row">
+			<!-- <div class="text_align_1">第一个数据</div>
+			<div class="text_align_2">第二个数据</div> -->
+			<div class="add_excel_data">
+				<form action="/user/add_excel" method="POST" enctype="multipart/form-data">
+					<h4>导入Excel表格</h4>
+					<div class="excel_row">
+						<input type="file" name="excel_file" id="excel_file">
+					</div>
+					<div class="add_row">
+						<button type="submit" class="btn btn-primary">添加</button>
+						<HR style="FILTER: alpha(opacity=100,finishopacity=0,style=2)" width="80%" color=#987cb9 SIZE=10>
+					</div>
+				</form>
+			</div>
+
+			<div class="add_user_info">
+					<h4>新建用户</h4>
+					<div class="add_row">
+						<a href="{{url_for('user.user_create')}}">
+							<button type="button" class="btn btn-primary">添加</button>
+						</a>
+						<!-- <button type="submit" class="btn btn-primary">添加</button> -->
+						<HR style="FILTER: alpha(opacity=100,finishopacity=0,style=2)" width="80%" color=#987cb9 SIZE=10>
+					</div>
+			</div>
+
+			<div class="content_search">
+				<form action="/api/display/user/search" method="POST">
+					<input type="text" name="u_name" id="u_name" placeholder="请输入用户名">
+					<button type="submit" class="btn btn-primary">搜索</button>
+				</form>
+				
+			</div>
+			<HR style="FILTER: alpha(opacity=100,finishopacity=0,style=2)" width="80%" color=#987cb9 SIZE=10>
+				
+        </div>
+        
+        <!-- user info -->
+		{% if users %}
+		<table class="table table-bordered">
+			<tr>
+				<th>序号</th>
+				<th>编号</th>
+                <th>姓名</th>
+				<th>手机号</th>
+				<th>请求的主机IP</th>
+				<th>操作</th>
+			</tr>
+			{% for u in users %}
+			<tr>
+				<td>{{loop.index}}</td>
+				<td>{{u.u_id}}</td>
+                <td>{{u.u_name}}</td>
+				<td>{{u.u_phone}}</td>
+				<td>{{ip}}</td>
+				<td>
+					<a href="{{url_for('user.user_edit', id=u.id)}}"><button type="text" class="btn btn-success">编辑</button></a>
+					<a href="{{url_for('user.user_delete', id=u.id)}}"><button type="text" class="btn btn-danger">删除</button></a>
+					<a href="{{url_for('user.user_edit', id=u.id)}}"><button type="text" class="btn btn-success">编辑Test</button></a>
+				</td>
+			</tr>				
+			{% endfor %}
+		</table>
+		{% endif %}
+		<div class="rows">
+			<p>项目总数:{{totalNumber}}</p>
+		</div>
+		<div class="container-page">
+			{% import 'users/pages.html' as pg %}
+			{% if pagination %}
+			{{pg.users_pagination(pagination, 'user.user_info_show')}}
+			{% endif %}
+		</div>
+	</div>
+	
+	<div style="text-align:center;clear:both">
+		<p>Copyright ©2019 AI+Platform 版权所有</p>
+		<p>AI+Platform</p>
+	</div>
+	
+	
+	{% endblock content %}
+</body>
+</html>
