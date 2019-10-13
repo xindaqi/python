@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>EditUserInfo</title>
+    <meta charset="utf-8">
+    <script>
+        function all_select(check_v, checkname){
+            var v_item = document.getElementsByName(check_v);
+            // console.log("全选");
+            // console.log(v_item[0].checked)
+            var items = document.getElementsByName(checkname);
+                for(var i=0;i<items.length;i++){
+                    if(v_item[0].checked){
+                        items[i].checked = true;
+                    }
+                    else{
+                        items[i].checked = false;
+                    }
+                }
+            }
+        function single_select(check_v, checkname){
+            var v_item = document.getElementsByName(check_v);
+            var items = document.getElementsByName(checkname);
+            var child_status = true;
+            for(var i=0; i<items.length; i++){
+                child_status = (child_status && items[i].checked);
+                }
+                if(child_status){
+                    v_item[0].checked = true;
+                }else{
+                    v_item[0].checked = false;
+                }
+            }
+    </script>
+</head>
+<body>
+	{%  extends 'bootstrap/base.html'%}
+	{% block title %}{% endblock %}
+	{% block content %}
+	<div class="container">
+		<div class="row"></div>
+		<div class="col-md-4 col-md-offset-4 col-sm-6 col-sm-offset-3">
+			<div class="page-heaer">
+				<h3>修改用户信息</h3>
+			</div>
+			{% if students %}
+			<form action="/api/school/student/edit/{{students.id}}" method="POST">
+				<div class="form-group">
+					<label for="u_id">学号</label>
+					<input type="text" name="u_id" class="form-control" value={{students.u_id}}>
+				</div>
+				<div class="form-group">
+					<label for="u_name">姓名</label>
+					<input type="text" name="name" class="form-control" value={{students.name}}>
+				</div>
+				<div class="form-group">
+					<label for="u_phone">分数</label>
+					<input type="text" name="grade" class="form-control" value={{students.grade}}>
+                </div>
+                <div class="from-group">
+                    <label for="teacher">老师</label>
+                        <p><input type="checkbox" name="all_check" value="所有老师" onclick="all_select('all_check', 'teacher')">所有老师</p>
+                            <ul>
+                                <p><input type="checkbox" name="teacher" value="1" onclick="single_select('all_check', 'teacher')">师一</p>
+                                <p><input type="checkbox" name="teacher" value="2" onclick="single_select('all_check', 'teacher')">师二</p>
+                                <p><input type="checkbox" name="teacher" value="3" onclick="single_select('all_check', 'teacher')">师三</p>
+                                <p><input type="checkbox" name="teacher" value="4" onclick="single_select('all_check', 'teacher')">师四</p>
+                                <p><input type="checkbox" name="teacher" value="5" onclick="single_select('all_check', 'teacher')">师五</p>
+                            </ul>
+                </div>
+				<button type="submit" class="btn btn-default">保存</button>
+				
+
+			</form>
+			{% endif %}
+		</div>
+	</div>
+	{% endblock content %}
+
+</body>
+</html>
