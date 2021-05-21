@@ -1,4 +1,4 @@
-tensorflow==1.10.0
+tensorflow==2.5.0
 Flask_Cors==3.0.6
 Flask==1.0.2
 gevent==1.4.0
